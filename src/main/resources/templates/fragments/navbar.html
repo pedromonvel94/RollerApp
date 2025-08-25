@@ -1,0 +1,51 @@
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"
+     xmlns:th="http://www.thymeleaf.org"
+     th:fragment="navbar(activePage)">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" th:href="@{/}">Roller Speed</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar" aria-controls="mainNavbar"
+            aria-expanded="false" aria-label="Abrir menú">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/mision}"
+             th:classappend="${activePage}=='mision' ? ' active' : ''"
+             th:attr="aria-current=${activePage}=='mision' ? 'page' : null">Misión</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/vision}"
+             th:classappend="${activePage}=='vision' ? ' active' : ''"
+             th:attr="aria-current=${activePage}=='vision' ? 'page' : null">Visión</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/valores}"
+             th:classappend="${activePage}=='valores' ? ' active' : ''"
+             th:attr="aria-current=${activePage}=='valores' ? 'page' : null">Valores</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/servicios}"
+             th:classappend="${activePage}=='servicios' ? ' active' : ''"
+             th:attr="aria-current=${activePage}=='servicios' ? 'page' : null">Servicios</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/eventos}"
+             th:classappend="${activePage}=='eventos' ? ' active' : ''"
+             th:attr="aria-current=${activePage}=='eventos' ? 'page' : null">Eventos de la escuela</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
