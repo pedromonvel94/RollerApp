@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RollerSpeed - Servicios</title>
+    <!-- Me traigo el CDN de bootstrap para poder usarlo sin necesidad de instalar nada -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!--Importo en esta parte dentro del body el fragment que cree, en este caso es el del navbar-->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <h1>Servicios</h1>
+
+    <!--Como lo solicita la plataforma de bootstrap se necesita tambien un link CDN de java que este como minimo, dentro de una etiqueta script-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
