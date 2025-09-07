@@ -1,13 +1,15 @@
 package com.rollerspeed.rollerspeed;
 
+
 import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+@Controller // Controlador principal
+//@RequestMapping("/")
 public class HomeController {
 
-
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index() {
         return "pages/index"; // busca index.html en templates/pages/index.html
     }
