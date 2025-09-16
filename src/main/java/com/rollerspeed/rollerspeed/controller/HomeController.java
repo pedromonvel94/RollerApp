@@ -1,4 +1,4 @@
-package com.rollerspeed.rollerspeed;
+package com.rollerspeed.rollerspeed.controller;
 
 
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ public class HomeController {
         return "pages/index"; // busca index.html en templates/pages/index.html
     }
 
-     @GetMapping("/mision")
+    @GetMapping("/mision")
     public String mision() {
         return "pages/mision"; // busca templates/pages/mision.html
     }
