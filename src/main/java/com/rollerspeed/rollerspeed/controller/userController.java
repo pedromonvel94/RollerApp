@@ -25,9 +25,8 @@ public class userController {
     @Autowired
     userService usuarioService;
 
-
     @GetMapping("/listar")
-    public String listarUser(Model model){
+    public String listarUser(Model model) {
         List<userModel> usuarios = usuarioService.listarUser();
         model.addAttribute("usuarios", usuarios);
         return "/user/listar_user";
@@ -39,14 +38,12 @@ public class userController {
         return "/user/form_user";
     }
 
-
     @PostMapping("/guardar")
     public String guardarUsuario(@Valid @ModelAttribute("usuario") userModel usuario, BindingResult result) {
-        
+
         if (result.hasErrors()) {
             return "/user/form_user";
         }
-        
 
         usuarioService.guardar(usuario);
         System.out.println("¡Usuario válido! Guardando a : " + usuario.getName());

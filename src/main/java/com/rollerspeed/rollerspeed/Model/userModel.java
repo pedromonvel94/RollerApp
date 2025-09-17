@@ -22,16 +22,15 @@ public class userModel {
     @Id // Clave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
     Long id;
-    
+
     @Column(name = "nombre", nullable = true, length = 50) // Nombre de la columna en la BD
     @NotBlank(message = "El nombre es obligatorio")
-    String name;    
-    
+    String name;
+
     @Column(name = "e_mail", nullable = false, length = 40)
     @Email(message = "Debe ser un correo válido")
     @NotBlank(message = "El email es obligatorio")
     String email;
-    
 
     @NotBlank(message = "La contraseña es obligatoria 🔐")
     @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
