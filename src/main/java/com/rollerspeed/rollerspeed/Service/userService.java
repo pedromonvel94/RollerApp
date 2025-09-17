@@ -9,12 +9,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rollerspeed.rollerspeed.Model.userModel;
-import com.rollerspeed.rollerspeed.Repository.userRepository;
+import com.rollerspeed.rollerspeed.Repository.UserRepository;
 
 @Service
 public class userService {
     @Autowired
-    userRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
