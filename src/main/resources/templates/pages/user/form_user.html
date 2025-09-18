@@ -3,32 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Usuario</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-5">
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-4">
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
                     <h4 class="mb-0">📝 Registrar Nuevo Usuario</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body py-2 px-4">
                    
-                    <!-- FORMULARIO -->
-                    <!-- th:action → URL donde se enviarán los datos -->
-                    <!-- th:object → Objeto de Thymeleaf que vincula los campos -->
-                    <form th:action="@{/user/guardar}" th:object="${usuario}" method="POST">
-                         <!-- Si hay errores globales, los mostramos aquí -->
+                    <form th:action="@{/users/guardar}" th:object="${usuario}" method="POST">
+
                         <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
                             <p th:each="err : ${#fields.errors('*')}" th:text="${err}">Mensaje de error</p>
                         </div>
-                        <!-- th:errors="*{nombre}" → muestra el mensaje personalizado que pusiste en @NotBlank(message = "...").
-                          💡 th:if="${#fields.hasErrors('nombre')}" → solo muestra el error si ese campo falló.  -->
-
-                        <!-- Campo: Nombre -->
-                        <div class="mb-3">
+                        
+                        <div class="mb-2">
                             <label for="nombre" class="form-label">Nombre completo</label>
                             <input type="text"
                                    class="form-control"
@@ -40,7 +34,7 @@
                         </div>
 
                         <!-- Campo: Email -->
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="email" class="form-label">Correo electrónico</label>
                             <input type="email"
                                    class="form-control"
@@ -51,7 +45,7 @@
                             <div th:if="${#fields.hasErrors('email')}" class="text-danger mt-1" th:errors="*{email}">Error en email</div> <!-- Muestra error específico -->
                         </div>
                         <!-- Campo: Password -->
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="password" class="form-label">Password</label>
                             <input type="password"
                                    class="form-control"
@@ -64,9 +58,11 @@
 
                         <!-- Botones -->
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="/user/listar" class="btn btn-secondary me-md-2">Cancelar</a>
+                            <a class="btn btn-secondary me-md-2">Cancelar</a>
                             <button type="submit" class="btn btn-success">Guardar Usuario</button>
                         </div>
+
+                        <!--<button href="/users/listar" class="btn btn-success">Lista de usuarios</button> -->
 
                     </form>
 
@@ -74,8 +70,9 @@
             </div>
         </div>
     </div>
-
+    <footer th:replace="fragments/footer :: footer"></footer>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

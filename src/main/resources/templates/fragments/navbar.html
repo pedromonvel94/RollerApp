@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/index}">Home</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
@@ -67,7 +67,20 @@
                         HomeController y buscar el especifico para la ruta que necesito 
                         en este caso /eventos-->
                     </li>
+                   
                 </ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/users/nuevo}">Registro</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/users/listar}">Lista Usuarios</a>
+                        </li> 
+                    </ul>
+                </li>
+                    
                 </li>
             </ul>
             <form class="d-flex" role="search">

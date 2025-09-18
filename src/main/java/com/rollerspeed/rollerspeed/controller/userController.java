@@ -2,9 +2,9 @@ package com.rollerspeed.rollerspeed.controller;
 
 import java.util.List;
 
-import javax.swing.Spring;
+//import javax.swing.Spring;
 
-import org.apache.catalina.User;
+//import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,20 +29,20 @@ public class userController {
     public String listarUser(Model model) {
         List<userModel> usuarios = usuarioService.listarUser();
         model.addAttribute("usuarios", usuarios);
-        return "/user/listar_user";
+        return "pages/user/listar_user";
     }
 
     @GetMapping("/nuevo")
     public String mostrarFormulario(Model model) {
         model.addAttribute("usuario", new userModel());
-        return "/user/form_user";
+        return "pages/user/form_user";
     }
 
     @PostMapping("/guardar")
     public String guardarUsuario(@Valid @ModelAttribute("usuario") userModel usuario, BindingResult result) {
 
         if (result.hasErrors()) {
-            return "/user/form_user";
+            return "pages/user/form_user";
         }
 
         usuarioService.guardar(usuario);
