@@ -10,9 +10,37 @@
 <body class="d-flex flex-column min-vh-100">
     <!--Importo en esta parte dentro del body el fragment que cree, en este caso es el del navbar-->
     <div th:replace="fragments/navbar :: navbar"></div>
-<main class="flex-grow-1">
-    <h1>Valores</h1>
-</main>
+
+    <main class="flex-grow-1">
+                <h1 class="mb-3">Nuestros valores</h1>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+        <div class="p-4 border rounded h-100">
+        <h5>Disciplina</h5>
+        <p>La constancia supera el talento cuando el talento no es constante.</p>
+        </div>
+        </div>
+        <div class="col">
+        <div class="p-4 border rounded h-100">
+        <h5>Respeto</h5>
+        <p>Nos apoyamos y cuidamos dentro y fuera de la pista.</p>
+        </div>
+        </div>
+        <div class="col">
+        <div class="p-4 border rounded h-100">
+        <h5>Trabajo en equipo</h5>
+        <p>Aprendemos juntos, progresamos juntos.</p>
+        </div>
+        </div>
+        <div class="col">
+        <div class="p-4 border rounded h-100">
+        <h5>Superación</h5>
+        <p>Fijamos metas y celebramos cada avance.</p>
+        </div>
+        </div>
+        </div>
+    </main>
+
     <!--Como lo solicita la plataforma de bootstrap se necesita tambien un link CDN de java que este como minimo, dentro de una etiqueta script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -12,7 +12,31 @@
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <main class="flex-grow-1">
-         <h1>Eventos 1</h1>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="mb-0">Eventos</h1>
+            <a class="btn btn-primary btn-sm" href="#">Crear evento (demo)</a>
+        </div>
+
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead><tr><th>Fecha</th><th>Evento</th><th>Lugar</th><th>Acciones</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>2025-10-05</td>
+                        <td>Entrenamiento abierto</td>
+                        <td>Parque Metropolitano</td>
+                        <td><a class="btn btn-outline-primary btn-sm" href="#">Inscribirme</a></td>
+                    </tr>
+                    <tr>
+                        <td>2025-11-12</td>
+                        <td>Competencia interclubes</td>
+                        <td>Villa Deportiva</td>
+                        <td><a class="btn btn-outline-primary btn-sm" href="#">Detalles</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </main>
    
 
