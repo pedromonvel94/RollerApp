@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendario Estudiantes</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="flex-grow-1">
+    <section class="bg-light py-4">
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+                <div>
+                    <h1 class="display-6 fw-bold text-success mb-0">Calendario para Estudiantes</h1>
+                    <p class="lead text-muted mb-0">Consulta horarios, niveles y cupos disponibles de las próximas clases.</p>
+                </div>
+                <a class="btn btn-primary" th:href="@{/alumnos/nuevo}">
+                    <i class="bi bi-calendar-plus me-2"></i>Inscribirme a una clase
+                </a>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-12 col-xl-4">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title">Resumen semanal</h5>
+                            <ul class="list-unstyled mb-0 text-muted">
+                                <li class="mb-2"><i class="bi bi-lightning-charge-fill text-success me-2"></i>Sesiones funcionales cada mañana.</li>
+                                <li class="mb-2"><i class="bi bi-person-walking text-success me-2"></i>Entrenamientos por niveles para principiantes, intermedios y avanzados.</li>
+                                <li class="mb-2"><i class="bi bi-geo-alt-fill text-success me-2"></i>Prácticas en sedes Norte y Central.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xl-8">
+                    <div class="table-responsive shadow-sm">
+                        <table class="table table-striped align-middle mb-0">
+                            <thead class="table-success">
+                            <tr>
+                                <th>Clase</th>
+                                <th>Días</th>
+                                <th>Horario</th>
+                                <th>Nivel</th>
+                                <th>Sede</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Funcional Básico</td>
+                                <td>Lunes y Miércoles</td>
+                                <td>06:00 - 07:00</td>
+                                <td>Básico</td>
+                                <td>Sede Norte</td>
+                            </tr>
+                            <tr>
+                                <td>Funcional Power</td>
+                                <td>Martes y Jueves</td>
+                                <td>18:30 - 20:00</td>
+                                <td>Intermedio</td>
+                                <td>Sede Central</td>
+                            </tr>
+                            <tr>
+                                <td>Funcional Elite</td>
+                                <td>Sábado</td>
+                                <td>07:00 - 09:00</td>
+                                <td>Avanzado</td>
+                                <td>Circuito Urbano</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

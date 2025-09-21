@@ -38,4 +38,9 @@ public class HomeController {
     public String eventos() {
         return "pages/eventos";
     }
+
+    @GetMapping("/valores-corporativos")
+    public String valoresCorporativos() {
+        return "pages/valores_corporativos";
+    }
 }

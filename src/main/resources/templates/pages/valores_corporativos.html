@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Valores Corporativos</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="flex-grow-1">
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold">Valores Corporativos</h1>
+                <p class="lead text-muted mb-0">Principios que guían cada entrenamiento, competencia y experiencia de nuestra comunidad RollerSpeed.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Excelencia deportiva</h5>
+                            <p class="card-text">Impulsamos la mejora continua a través de programas estructurados y seguimiento permanente del desempeño.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Integridad</h5>
+                            <p class="card-text">Actuamos con transparencia y respeto, garantizando ambientes seguros para estudiantes y colaboradores.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Trabajo en equipo</h5>
+                            <p class="card-text">Construimos comunidad mediante la colaboración, el apoyo mutuo y la comunicación abierta.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Innovación</h5>
+                            <p class="card-text">Integramos nuevas metodologías y tecnología deportiva para ofrecer experiencias de aprendizaje memorables.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Responsabilidad social</h5>
+                            <p class="card-text">Fomentamos hábitos saludables e impactamos positivamente a nuestro entorno con programas accesibles.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Pasión</h5>
+                            <p class="card-text">Vivimos el patinaje con entusiasmo y dedicación, inspirando a nuevas generaciones de deportistas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
