@@ -1,0 +1,52 @@
+<footer th:fragment="footer" class="bg-dark text-white py-3 mt-auto">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3 mb-2">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/assets/image.png}" alt="RollerSpeed Logo" width="120" height="50">
+                </a>
+                <p class="mt-2 mb-0">Av. Patinadores 123<br>Medellín, Colombia</p>
+                <p class="mb-0">+57 (604) 123 4567</p>
+            </div>
+
+            <!-- Enlaces principales -->
+            <div class="col-md-3 mb-2">
+                <h6 class="fw-bold">Enlaces</h6>
+                <ul class="list-unstyled">
+                    <li><a class="text-white text-decoration-none" th:href="@{/valores-corporativos}">Valores Corporativos</a></li>
+                    <li><a class="text-white text-decoration-none" th:href="@{/mision}">Misión</a></li>
+                    <li><a class="text-white text-decoration-none" th:href="@{/vision}">Visión</a></li>
+                    <li><a class="text-white text-decoration-none" th:href="@{/valores}">Valores</a></li>
+                    <li><a class="text-white text-decoration-none" th:href="@{/servicios}">Servicios</a></li>
+                    <li><a class="text-white text-decoration-none" th:href="@{/eventos}">Eventos</a></li>
+                </ul>
+            </div>
+
+            <!-- Zonas -->
+            <div class="col-md-3 mb-2">
+                <h6 class="fw-bold">Zonas</h6>
+                <ul class="list-unstyled">
+                    <li><a class="text-white text-decoration-none" th:href="@{/calendario/estudiantes}">Calendario de Clases</a></li>
+                    <li><a class="text-white text-decoration-none" th:href="@{/alumnos}">Zona Estudiantes</a></li>
+                    <li><a class="text-white text-decoration-none" th:href="@{/instructores}">Zona Instructores</a></li>
+                </ul>
+            </div>
+
+            <!-- Redes sociales -->
+            <div class="col-md-3 mb-2">
+                <h6 class="fw-bold">Síguenos</h6>
+                <p>
+                    <a href="https://instagram.com" target="_blank" class="text-white me-2">Instagram</a><br>
+                    <a href="https://facebook.com" target="_blank" class="text-white me-2">Facebook</a><br>
+                    <a href="https://twitter.com" target="_blank" class="text-white">Twitter</a>
+                </p>
+            </div>
+        </div>
+
+        <hr class="border-light mt-0">
+        <div class="text-center">
+            <p class="mb-0">&copy; 2025 RollerSpeed - Academia de Patinaje</p>
+        </div>
+    </div>
+</footer>

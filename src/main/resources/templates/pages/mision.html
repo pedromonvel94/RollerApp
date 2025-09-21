@@ -7,13 +7,30 @@
     <!-- Me traigo el CDN de bootstrap para poder usarlo sin necesidad de instalar nada -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!--Importo en esta parte dentro del body el fragment que cree, en este caso es el del navbar-->
     <div th:replace="fragments/navbar :: navbar"></div>
 
-    <h1>Misión</h1>
+    <main class="container py-4">
+        <h1 class="mb-3">Nuestra misión</h1>
+            <p class="lead">Brindar formación integral en patinaje de velocidad, promoviendo la disciplina, el respeto y el trabajo en equipo para el desarrollo deportivo y humano.</p>
+
+        <div class="row g-4 mt-1">
+            <div class="col-md-6"><img class="img-fluid rounded" src="https://picsum.photos/seed/mision/800/480" alt="Misión"/></div>
+            <div class="col-md-6">
+                <h5>¿Cómo lo hacemos?</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Sesiones por niveles con metas trimestrales.</li>
+                    <li class="list-group-item">Plan de progreso individual y seguimiento.</li>
+                    <li class="list-group-item">Eventos internos para reforzar técnica y confianza.</li>
+                </ul>
+            </div>
+        </div>
+    </main>
 
     <!--Como lo solicita la plataforma de bootstrap se necesita tambien un link CDN de java que este como minimo, dentro de una etiqueta script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
+
 </html>

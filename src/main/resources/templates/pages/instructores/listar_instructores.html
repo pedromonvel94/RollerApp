@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de instructores</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="flex-grow-1">
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0">🧑‍🏫 Instructores registrados</h2>
+            <a class="btn btn-success" th:href="@{/instructores/nuevo}">
+                + Registrar instructor
+            </a>
+        </div>
+
+        <div th:if="${instructores.isEmpty()}">
+            <div class="alert alert-info">
+                Aún no hay instructores registrados.
+                <a class="alert-link" th:href="@{/instructores/nuevo}">Crea el primero aquí.</a>
+            </div>
+        </div>
+
+        <div th:if="${!instructores.isEmpty()}" class="table-responsive shadow-sm">
+            <table class="table table-striped align-middle mb-0">
+                <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Especialidad</th>
+                    <th>Nivel cert.</th>
+                    <th>Experiencia</th>
+                    <th>Disponibilidad</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="instructor, iter : ${instructores}">
+                    <td th:text="${iter.index + 1}">1</td>
+                    <td th:text="${instructor.nombreCompleto}">Laura Gómez</td>
+                    <td th:text="${instructor.correo}">laura@rollerspeed.com</td>
+                    <td th:text="${instructor.telefono}">3001234567</td>
+                    <td th:text="${instructor.especialidad}">Velocidad</td>
+                    <td th:text="${instructor.nivelCertificacion}">Avanzado</td>
+                    <td>
+                        <span th:text="${instructor.aniosExperiencia} + ' años'">5 años</span>
+                    </td>
+                    <td th:text="${instructor.disponibilidad}">Mañana</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

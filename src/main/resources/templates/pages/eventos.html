@@ -7,13 +7,41 @@
     <!-- Me traigo el CDN de bootstrap para poder usarlo sin necesidad de instalar nada -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!--Importo en esta parte dentro del body el fragment que cree, en este caso es el del navbar-->
     <div th:replace="fragments/navbar :: navbar"></div>
 
-    <h1>Eventos</h1>
+    <main class="flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="mb-0">Eventos</h1>
+            <a class="btn btn-primary btn-sm" href="#">Crear evento (demo)</a>
+        </div>
 
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead><tr><th>Fecha</th><th>Evento</th><th>Lugar</th><th>Acciones</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>2025-10-05</td>
+                        <td>Entrenamiento abierto</td>
+                        <td>Parque Metropolitano</td>
+                        <td><a class="btn btn-outline-primary btn-sm" href="#">Inscribirme</a></td>
+                    </tr>
+                    <tr>
+                        <td>2025-11-12</td>
+                        <td>Competencia interclubes</td>
+                        <td>Villa Deportiva</td>
+                        <td><a class="btn btn-outline-primary btn-sm" href="#">Detalles</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+   
+    <footer th:replace="fragments/footer :: footer"></footer>
     <!--Como lo solicita la plataforma de bootstrap se necesita tambien un link CDN de java que este como minimo, dentro de una etiqueta script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

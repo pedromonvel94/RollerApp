@@ -1,79 +1,69 @@
-<!--Aqui creo un fragmento de thymeleaf, funciona como si fuera un componente de React, el cual creo aqui y puedo reusar en cualquier otra pagina de mi proyecto.-->
-<!--OJO es importante tener presente que al usar un href o un src debo de usar el comando th: antes de el y usarlo como por ejemplo:
-    th:src="@{/assets/rollerspeedlogo.png}"
--->
-<nav class="navbar navbar-expand-lg bg-body-tertiary" th:fragment="navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/index}">
+<nav class="navbar navbar-expand-lg navbar-light bg-light"
+    xmlns:th="http://www.thymeleaf.org"
+    th:fragment="navbar">
+        <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/assets/rollerspeedlogo.png}" alt="Bootstrap" width="120" height="50">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/index}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Opciones</a>
-                <ul class="dropdown-menu">
-                    <p class="text-secondary mb-0 ms-2">Filosofia</p>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <a class="dropdown-item" th:href="@{/mision}">Misión</a> 
-                        <!--Lo que hace este fragmento de aqui es ir directamente a 
-                        los controladores de mi pagina los cuales los tengo guardados en 
-                        HomeController y buscar el especifico para la ruta que necesito 
-                        en este caso /mision-->
-                    </li>
-                    <li>
-                        <a class="dropdown-item" th:href="@{/vision}">Visión</a>
-                        <!--Lo que hace este fragmento de aqui es ir directamente a 
-                        los controladores de mi pagina los cuales los tengo guardados en 
-                        HomeController y buscar el especifico para la ruta que necesito 
-                        en este caso /vision-->
-                    </li>
-                    <li>
-                        <a class="dropdown-item" th:href="@{/valores}">Valores</a>
-                        <!--Lo que hace este fragmento de aqui es ir directamente a 
-                        los controladores de mi pagina los cuales los tengo guardados en 
-                        HomeController y buscar el especifico para la ruta que necesito 
-                        en este caso /valores-->
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <p class="text-secondary mb-0 ms-2">Información</p>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <a class="dropdown-item" th:href="@{/servicios}">Servicios</a>
-                        <!--Lo que hace este fragmento de aqui es ir directamente a 
-                        los controladores de mi pagina los cuales los tengo guardados en 
-                        HomeController y buscar el especifico para la ruta que necesito 
-                        en este caso /servicios-->
-                    </li>
-                    <li>
-                        <a class="dropdown-item" th:href="@{/eventos}">Eventos</a>
-                        <!--Lo que hace este fragmento de aqui es ir directamente a 
-                        los controladores de mi pagina los cuales los tengo guardados en 
-                        HomeController y buscar el especifico para la ruta que necesito 
-                        en este caso /eventos-->
-                    </li>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarNavDarkDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/valores-corporativos}">
+                Valores Corporativos
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Corporativo
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" th:href="@{/mision}">Misión</a></li>
+                <li><a class="dropdown-item" th:href="@{/vision}">Visión</a></li>
+                <li><a class="dropdown-item" th:href="@{/valores}">Valores</a></li>
+                <li><a class="dropdown-item" th:href="@{/servicios}">Servicios</a></li>
                 </ul>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/eventos}" id="navbarDarkDropdownMenuLink">
+                Eventos de la escuela
+                </a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Registro
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" th:href="@{/alumnos/nuevo}">Inscripción de Estudiantes</a></li>
+                <li><a class="dropdown-item" th:href="@{/instructores/nuevo}">Inscripción de Instructor</a></li>
+                <li><a class="dropdown-item" th:href="@{/clases}">Clases</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Estudiantes
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" th:href="@{/alumnos}">Listar Estudiantes</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Calendario
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" th:href="@{/calendario/estudiantes}">Estudiantes</a></li>
+                <li><a class="dropdown-item" th:href="@{/calendario/instructores}">Instructor</a></li>
+                </ul>
+            </li>
+
+        </ul>
     </div>
+</div>
 </nav>

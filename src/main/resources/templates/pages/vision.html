@@ -7,13 +7,44 @@
     <!-- Me traigo el CDN de bootstrap para poder usarlo sin necesidad de instalar nada -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!--Importo en esta parte dentro del body el fragment que cree, en este caso es el del navbar-->
     <div th:replace="fragments/navbar :: navbar"></div>
+<main class="flex-grow-1">
+    <h1 class="mb-3">Nuestra visión</h1>
+    <p class="lead">Ser una escuela referente regional en formación deportiva, con atletas que compiten con integridad y excelencia.</p>
 
-    <h1>Visión</h1>
 
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+<div class="col">
+<div class="card h-100">
+<div class="card-body">
+<h5 class="card-title">Crecimiento</h5>
+<p class="card-text">Expandir sedes y alianzas para llegar a más familias.</p>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="card h-100">
+<div class="card-body">
+<h5 class="card-title">Excelencia</h5>
+<p class="card-text">Programas con metodología moderna y medición de resultados.</p>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="card h-100">
+<div class="card-body">
+<h5 class="card-title">Comunidad</h5>
+<p class="card-text">Construir un entorno seguro e inclusivo para todos.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer th:replace="fragments/footer :: footer"></footer>
     <!--Como lo solicita la plataforma de bootstrap se necesita tambien un link CDN de java que este como minimo, dentro de una etiqueta script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

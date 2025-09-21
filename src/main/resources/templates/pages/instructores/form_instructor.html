@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Instructor</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="flex-grow-1">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0" th:text="${modoEdicion} ? '✏️ Editar instructor' : '🧑‍🏫 Registrar nuevo instructor'">🧑‍🏫 Registrar nuevo instructor</h4>
+                        <a class="btn btn-light btn-sm" th:href="@{/instructores}">
+                            Ver listado
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+                        <form th:action="${modoEdicion} ? @{/instructores/actualizar/{id}(id=${instructor.id})} : @{/instructores/guardar}"
+                              th:object="${instructor}"
+                              method="post"
+                              novalidate>
+
+                            <div th:if="${#fields.hasErrors('*')}"
+                                 class="alert alert-danger">
+                                <p class="mb-0" th:each="err : ${#fields.errors('*')}"
+                                   th:text="${err}">Mensaje de error</p>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="nombreCompleto" class="form-label">Nombre completo</label>
+                                    <input id="nombreCompleto"
+                                           class="form-control"
+                                           type="text"
+                                           th:field="*{nombreCompleto}"
+                                           placeholder="Ej. Laura Gómez"
+                                           required>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('nombreCompleto')}"
+                                         th:errors="*{nombreCompleto}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+                                    <input id="fechaNacimiento"
+                                           class="form-control"
+                                           type="date"
+                                           th:field="*{fechaNacimiento}"
+                                           required>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('fechaNacimiento')}"
+                                         th:errors="*{fechaNacimiento}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="genero" class="form-label">Género</label>
+                                    <select id="genero"
+                                            class="form-select"
+                                            th:field="*{genero}"
+                                            required>
+                                        <option value="" disabled selected>Selecciona una opción</option>
+                                        <option value="FEMENINO">Femenino</option>
+                                        <option value="MASCULINO">Masculino</option>
+                                        <option value="OTRO">Otro / Prefiero no decir</option>
+                                    </select>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('genero')}"
+                                         th:errors="*{genero}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="telefono" class="form-label">Teléfono de contacto</label>
+                                    <input id="telefono"
+                                           class="form-control"
+                                           type="tel"
+                                           th:field="*{telefono}"
+                                           placeholder="3001234567"
+                                           required>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('telefono')}"
+                                         th:errors="*{telefono}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="correo" class="form-label">Correo electrónico</label>
+                                    <input id="correo"
+                                           class="form-control"
+                                           type="email"
+                                           th:field="*{correo}"
+                                           placeholder="instructor@rollerspeed.com"
+                                           required>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('correo')}"
+                                         th:errors="*{correo}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="especialidad" class="form-label">Especialidad principal</label>
+                                    <select id="especialidad"
+                                            class="form-select"
+                                            th:field="*{especialidad}"
+                                            required>
+                                        <option value="" disabled selected>Selecciona una opción</option>
+                                        <option value="Velocidad">Velocidad</option>
+                                        <option value="Artístico">Patinaje artístico</option>
+                                        <option value="Slalom">Slalom</option>
+                                        <option value="Roller Derby">Roller derby</option>
+                                        <option value="Fitness">Fitness / Recreativo</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('especialidad')}"
+                                         th:errors="*{especialidad}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="nivelCertificacion" class="form-label">Nivel de certificación</label>
+                                    <select id="nivelCertificacion"
+                                            class="form-select"
+                                            th:field="*{nivelCertificacion}"
+                                            required>
+                                        <option value="" disabled selected>Selecciona una opción</option>
+                                        <option value="BASICO">Básico</option>
+                                        <option value="INTERMEDIO">Intermedio</option>
+                                        <option value="AVANZADO">Avanzado</option>
+                                        <option value="INTERNACIONAL">Internacional</option>
+                                    </select>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('nivelCertificacion')}"
+                                         th:errors="*{nivelCertificacion}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="aniosExperiencia" class="form-label">Años de experiencia</label>
+                                    <input id="aniosExperiencia"
+                                           class="form-control"
+                                           type="number"
+                                           min="0"
+                                           th:field="*{aniosExperiencia}"
+                                           placeholder="Ej. 5"
+                                           required>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('aniosExperiencia')}"
+                                         th:errors="*{aniosExperiencia}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="disponibilidad" class="form-label">Disponibilidad horaria</label>
+                                    <select id="disponibilidad"
+                                            class="form-select"
+                                            th:field="*{disponibilidad}"
+                                            required>
+                                        <option value="" disabled selected>Selecciona una opción</option>
+                                        <option value="MANANA">Mañana</option>
+                                        <option value="TARDE">Tarde</option>
+                                        <option value="NOCHE">Noche</option>
+                                        <option value="FIN_DE_SEMANA">Fin de semana</option>
+                                        <option value="FLEXIBLE">Flexible</option>
+                                    </select>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('disponibilidad')}"
+                                         th:errors="*{disponibilidad}"></div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="certificaciones" class="form-label">Certificaciones o logros relevantes</label>
+                                    <textarea id="certificaciones"
+                                              class="form-control"
+                                              rows="3"
+                                              th:field="*{certificaciones}"
+                                              placeholder="Describe tus certificaciones, clubes o logros más importantes"></textarea>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('certificaciones')}"
+                                         th:errors="*{certificaciones}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="password" class="form-label">Contraseña de acceso</label>
+                                    <input id="password"
+                                           class="form-control"
+                                           type="password"
+                                           th:field="*{password}"
+                                           placeholder="Mínimo 6 caracteres"
+                                           required>
+                                    <div class="text-muted small" th:if="${modoEdicion}">
+                                        Mantén el valor actual para conservar la contraseña sin cambios.
+                                    </div>
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('password')}"
+                                         th:errors="*{password}"></div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" th:field="*{rol}" value="INSTRUCTOR"/>
+
+                            <div class="d-flex justify-content-end gap-2 mt-4">
+                                <a class="btn btn-outline-secondary" th:href="@{/instructores}">
+                                    Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-success" th:text="${modoEdicion} ? 'Actualizar instructor' : 'Guardar instructor'">
+                                    Guardar instructor
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
