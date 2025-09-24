@@ -21,10 +21,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rollerspeed.rollerspeed.Model.Alumno;
 import com.rollerspeed.rollerspeed.Service.AlumnoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/alumnos")
+@Tag(name = "Alumnos", description = "Gestión de alumnos")
 public class AlumnoController {
 
     private static final String PASSWORD_PLACEHOLDER = "********";
@@ -40,6 +45,8 @@ public class AlumnoController {
         model.addAttribute("mediosPago", List.of("Tarjeta de Crédito", "Transferencia Bancaria", "Efectivo"));
     }
 
+    @Operation(summary = "Obtener una lista de todos los alumnos", description = "Devuelve una lista de todos los alumnos registrados")
+    @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente")
     @GetMapping
     public String listar(Model model) {
         List<Alumno> alumnos = alumnoService.listarAlumnos();
@@ -47,6 +54,8 @@ public class AlumnoController {
         return "pages/alumnos/listar_alumnos";
     }
 
+    @Operation(summary = "Obtener un formulario para crear un nuevo alumno", description = "Devuelve el formulario para crear un nuevo alumno")
+    @ApiResponse(responseCode = "200", description = "Formulario obtenido correctamente")
     @GetMapping("/nuevo")
     public String mostrarFormulario(Model model) {
         Alumno alumno = new Alumno();
@@ -57,6 +66,12 @@ public class AlumnoController {
         return "pages/alumnos/form_alumno";
     }
 
+    @Operation(summary = "Sirve para guardar y crear un nuevo alumno", description = "Guarda un nuevo alumno")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Alumno creado correctamente"),
+        @ApiResponse(responseCode = "400", description = "Errores de validación en los campos del formulario"),
+        @ApiResponse(responseCode = "409", description = "Correo ya registrado en el sistema")
+    })
     @PostMapping("/guardar")
     public String guardarUsuario(@Valid @ModelAttribute("alumno") Alumno alumno, BindingResult result,
             Model model, RedirectAttributes redirectAttributes) {

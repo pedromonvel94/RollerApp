@@ -12,10 +12,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rollerspeed.rollerspeed.Model.Instructor;
 import com.rollerspeed.rollerspeed.Service.InstructorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/instructores")
+@Tag(name = "Instructores", description = "Gestión de instructores")
 public class InstructorController {
 
     private final InstructorService instructorService;
@@ -24,6 +28,8 @@ public class InstructorController {
         this.instructorService = instructorService;
     }
 
+    @Operation(summary = "Obtener una lista de todos los instructores", description = "Devuelve una lista de todos los instructores registrados")
+    @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente")
     @GetMapping
     public String listarInstructores(Model model) {
         model.addAttribute("instructores", instructorService.listarInstructores());
