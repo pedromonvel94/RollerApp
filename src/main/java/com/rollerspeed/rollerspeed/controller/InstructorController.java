@@ -14,6 +14,7 @@ import com.rollerspeed.rollerspeed.Service.InstructorService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
@@ -36,6 +37,8 @@ public class InstructorController {
         return "pages/instructores/listar_instructores";
     }
 
+    @Operation(summary = "Obtener un formulario para crear un nuevo instructor", description = "Devuelve el formulario para crear un nuevo instructor")
+    @ApiResponse(responseCode = "200", description = "Formulario obtenido correctamente")
     @GetMapping("/nuevo")
     public String mostrarFormularioRegistro(Model model) {
         if (!model.containsAttribute("instructor")) {
@@ -47,6 +50,12 @@ public class InstructorController {
         return "pages/instructores/form_instructor";
     }
 
+    @Operation(summary = "Sirve para guardar y crear un nuevo instructor", description = "Guarda un nuevo instructor")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Instructor creado correctamente"),
+        @ApiResponse(responseCode = "400", description = "Errores de validación en los campos del formulario"),
+        @ApiResponse(responseCode = "409", description = "Correo ya registrado en el sistema")
+    })
     @PostMapping("/guardar")
     public String guardarInstructor(@Valid @ModelAttribute("instructor") Instructor instructor, BindingResult result,
             Model model, RedirectAttributes redirectAttributes) {

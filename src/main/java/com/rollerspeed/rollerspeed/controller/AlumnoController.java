@@ -91,6 +91,8 @@ public class AlumnoController {
         return "redirect:/alumnos";
     }
 
+    @Operation(summary = "Obtener nuevamente el formulario para modificar un alumno existente.", description = "Devuelve el formulario para editar un alumno existente")
+    @ApiResponse(responseCode = "200", description = "Formulario obtenido correctamente")
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
         Alumno alumno = alumnoService.buscarPorId(id)
@@ -102,6 +104,12 @@ public class AlumnoController {
         return "pages/alumnos/form_alumno";
     }
 
+    @Operation(summary = "Actualizar un alumno existente", description = "Actualiza los datos de un alumno existente basado en el id y manejamos errores de validación y duplicados")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Alumno actualizado correctamente"),
+        @ApiResponse(responseCode = "409", description = "Correo ya registrado en el sistema"),
+        @ApiResponse(responseCode = "302", description = "Errores de validación en los campos del formulario"),
+    })
     @PostMapping("/actualizar/{id}")
     public String actualizarAlumno(@PathVariable Long id, @Valid @ModelAttribute("alumno") Alumno alumno,
             BindingResult result, Model model, RedirectAttributes redirectAttributes) {
@@ -135,6 +143,9 @@ public class AlumnoController {
         return "redirect:/alumnos";
     }
 
+
+    @Operation(summary = "Eliminar un alumno", description = "Elimina un alumno existente basado en el id")
+    @ApiResponse(responseCode = "200", description = "Alumno eliminado correctamente")
     @GetMapping("/eliminar/{id}")
     public String eliminarAlumno(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         alumnoService.eliminar(id);
