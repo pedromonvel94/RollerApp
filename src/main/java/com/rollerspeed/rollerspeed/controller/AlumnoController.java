@@ -7,6 +7,7 @@ import java.util.List;
 //import org.apache.catalina.User;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/alumnos")
+@PreAuthorize("denyAll()") // Bloquea el acceso a todos los métodos del controlador por defecto
 @Tag(name = "Alumnos", description = "Gestión de alumnos")
 public class AlumnoController {
 
@@ -44,10 +46,11 @@ public class AlumnoController {
         model.addAttribute("estadosPago", List.of("Pendiente", "Pago", "Mora"));
         model.addAttribute("mediosPago", List.of("Tarjeta de Crédito", "Transferencia Bancaria", "Efectivo"));
     }
-
+    // Anotaciones de Swagger para documentar la API
     @Operation(summary = "Obtener una lista de todos los alumnos", description = "Devuelve una lista de todos los alumnos registrados")
     @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente")
     @GetMapping
+    @PreAuthorize("hasAuthority('UPDATE')") // Estoy indicando con PreAuthorize que solo INSTRUCTORES y ADMIN pueden acceder, es como lo que hice en securityConfig en el authorizeHttpRequests
     public String listar(Model model) {
         List<Alumno> alumnos = alumnoService.listarAlumnos();
         model.addAttribute("alumnos", alumnos);
@@ -57,6 +60,7 @@ public class AlumnoController {
     @Operation(summary = "Obtener un formulario para crear un nuevo alumno", description = "Devuelve el formulario para crear un nuevo alumno")
     @ApiResponse(responseCode = "200", description = "Formulario obtenido correctamente")
     @GetMapping("/nuevo")
+    @PreAuthorize("hasAuthority('CREATE')") // Estoy indicando con PreAuthorize que solo ADMIN puede acceder
     public String mostrarFormulario(Model model) {
         Alumno alumno = new Alumno();
         alumno.setRol("ALUMNO"); // Establece el rol predeterminado
@@ -73,6 +77,7 @@ public class AlumnoController {
         @ApiResponse(responseCode = "409", description = "Correo ya registrado en el sistema")
     })
     @PostMapping("/guardar")
+    @PreAuthorize("hasAuthority('CREATE')") // Estoy indicando con PreAuthorize que solo ADMIN puede crear o guardar un nuevo alumno
     public String guardarUsuario(@Valid @ModelAttribute("alumno") Alumno alumno, BindingResult result,
             Model model, RedirectAttributes redirectAttributes) {
 
@@ -94,6 +99,7 @@ public class AlumnoController {
     @Operation(summary = "Obtener nuevamente el formulario para modificar un alumno existente.", description = "Devuelve el formulario para editar un alumno existente")
     @ApiResponse(responseCode = "200", description = "Formulario obtenido correctamente")
     @GetMapping("/editar/{id}")
+    @PreAuthorize("hasAuthority('UPDATE')") // Estoy indicando con PreAuthorize que solo INSTRUCTORES y ADMIN pueden editar un alumno
     public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
         Alumno alumno = alumnoService.buscarPorId(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Alumno no encontrado"));
@@ -111,6 +117,7 @@ public class AlumnoController {
         @ApiResponse(responseCode = "302", description = "Errores de validación en los campos del formulario"),
     })
     @PostMapping("/actualizar/{id}")
+    @PreAuthorize("hasAuthority('UPDATE')") // Estoy indicando con PreAuthorize que solo INSTRUCTORES y ADMIN pueden actualizar un alumno
     public String actualizarAlumno(@PathVariable Long id, @Valid @ModelAttribute("alumno") Alumno alumno,
             BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
@@ -147,6 +154,7 @@ public class AlumnoController {
     @Operation(summary = "Eliminar un alumno", description = "Elimina un alumno existente basado en el id")
     @ApiResponse(responseCode = "200", description = "Alumno eliminado correctamente")
     @GetMapping("/eliminar/{id}")
+    @PreAuthorize("hasAuthority('DELETE')") // Estoy indicando con PreAuthorize que solo ADMIN puede eliminar un alumno
     public String eliminarAlumno(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         alumnoService.eliminar(id);
         redirectAttributes.addFlashAttribute("mensajeExito", "Alumno eliminado correctamente");

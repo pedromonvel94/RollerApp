@@ -18,12 +18,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class passConfiguration {
-     @Bean // Expone el PasswordEncoder como un 'componente' que otros pueden usar
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    //@Bean // Expone el PasswordEncoder como un 'componente' que otros pueden usar
+    //public PasswordEncoder passwordEncoder() {
+        //return new BCryptPasswordEncoder();
+    //}
      // ✅ Este bean DESACTIVA el login automático → ¡permite acceso libre a todas las rutas!
-    @Bean
+    /*@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authz -> authz
@@ -32,5 +32,5 @@ public class passConfiguration {
             .csrf(csrf -> csrf.disable()); // ← Opcional: desactiva CSRF para pruebas (solo en desarrollo)
 
         return http.build();
-    }
+    }*/
 }

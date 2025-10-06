@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 //@RequestMapping("/")
 @Tag(name = "Vistas", description = "Gestión de las vistas")
 public class HomeController {
-
+    
     @Operation(summary = "Muestra el home o pagina de inicio", description = "Devuelve la página de inicio")
     @ApiResponse(responseCode = "200", description = "Página de inicio mostrada correctamente")
     @GetMapping("/")
