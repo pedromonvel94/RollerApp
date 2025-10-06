@@ -34,7 +34,7 @@ public class securityConfig {
     @Autowired //sirve para que Spring cree e inyecte automáticamente los objetos (beans) sin tener que hacer "new" manualmente
     AuthenticationConfiguration authenticationConfiguration; //Este es un objeto que ya existe en SpringSecurity y que nos permite obtener el AuthenticationManager
 
-    @Bean
+/*     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{ //Este es un objeto que cada filtro le va pasando a esta clase como parametro, modificando el comportamiento del mismo.
         //Aqui en el securityFilterChain es donde se configuran las reglas o condiciones de seguridad de la aplicación web.
         return httpSecurity
@@ -48,16 +48,27 @@ public class securityConfig {
                 http.requestMatchers(HttpMethod.GET, "/calendario/estudiantes").permitAll();//Con esto le decimos que la ruta /calendario/estudiantes es pública y cualquiera puede acceder sin necesidad de estar autenticado.
                 
                 //Configurar los endpoints PRIVADOS
-                http.requestMatchers(HttpMethod.GET, "/alumnos/**").hasAnyAuthority("UPDATE"); //Con esto le decimos que para acceder a cualquier ruta que empiece con /alumnos/ se necesita tener el AUTHORITY de UPDATE el cual solo lo tienen INSTRUCTORES o ADMIN
+                http.requestMatchers(HttpMethod.GET, "/alumnos/**").hasAuthority("UPDATE"); //Con esto le decimos que para acceder a cualquier ruta que empiece con /alumnos/ se necesita tener el AUTHORITY de UPDATE el cual solo lo tienen INSTRUCTORES o ADMIN
                 http.requestMatchers(HttpMethod.GET, "/instructores/**").hasAuthority("CREATE"); //Con esto le decimos que para acceder a cualquier ruta que empiece con /instructores/ se necesita tener el AUTHORITY de CREATE el cual solo lo tiene ADMIN
                 http.requestMatchers(HttpMethod.GET, "/clases/**").hasAuthority("REGISTER"); //Con esto le decimos que para acceder a cualquier ruta que empiece con /clases/ se necesita tener el AUTHORITY de REGISTER el cual lo tienen todos los ROLES
                 http.requestMatchers(HttpMethod.GET, "/swagger-ui/**").hasAuthority("CREATE"); //Con esto le decimos que la ruta /swagger-ui/ SOLO es accesible para el AUTHORITY de ADMIN
                 http.requestMatchers(HttpMethod.GET, "/calendario/instructores").hasAuthority("UPDATE"); //Con esto le decimos que para acceder a cualquier ruta que empiece con /alumnos/ se necesita tener el AUTHORITY de UPDATE el cual solo lo tienen INSTRUCTORES o ADMIN
 
                 //Configurar el resto de endpoints - NO ESPECIFICADOS
-                http.anyRequest().authenticated(); //Cualquier otra ruta no especificada anteriormente requiere autenticación.
+                http.anyRequest().denyAll(); //Cualquier otra ruta no especificada anteriormente NO ES ACCESIBLE PARA NADIE por ende es mas seguro.
+                //http.anyRequest().authenticated(); //Cualquier otra ruta no especificada anteriormente requiere autenticación Y POR ENDE TIENEN ACCESO.
             
             })
+            .build();
+    } */
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{ //Este es un objeto que cada filtro le va pasando a esta clase como parametro, modificando el comportamiento del mismo.
+        //Aqui en el securityFilterChain es donde se configuran las reglas o condiciones de seguridad de la aplicación web.
+        return httpSecurity
+            .csrf(csrf -> csrf.disable())
+            .httpBasic(Customizer.withDefaults()) //Con esto activamos la autenticación básica (Basic Auth) que es un método simple para que los usuarios se autentiquen enviando su nombre de usuario y contraseña en cada solicitud HTTP.
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Con esto le decimos a Spring Security que no queremos que guarde sesiones, es decir, que no guarde el estado de si un usuario está logueado o no.
             .build();
     }
 
