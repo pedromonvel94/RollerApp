@@ -2,6 +2,7 @@ package com.rollerspeed.rollerspeed.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class ClaseController {
     @Operation(summary = "Listar las clases de la academia", description = "Listamos las clases de la academia, ademas las recibimos de ClaseDataConfig, donde estan alojadas de forma estatica. (Por ahora)")
     @ApiResponse(responseCode = "200", description = "Clases mostradas correctamente")
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','INSTRUCTOR','ALUMNO')")
     public String listarClases(Model model) {
         List<Clase> clases = claseService.listarClases();
         model.addAttribute("clases", clases);

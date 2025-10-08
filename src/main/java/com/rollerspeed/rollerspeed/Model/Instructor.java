@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -46,12 +47,15 @@ public class Instructor {
 
     @Email(message = "Debe ser un correo válido")
     @NotBlank(message = "El correo es obligatorio")
+    @Column(unique = true, nullable = false, length = 60)
     private String correo;
 
     @NotBlank(message = "Debe seleccionar una especialidad")
+    @Column(nullable = false, length = 80)
     private String especialidad;
 
     @NotBlank(message = "Debe seleccionar un nivel de certificación")
+    @Column(nullable = false, length = 40)
     private String nivelCertificacion;
 
     @NotNull(message = "Debe indicar los años de experiencia")
@@ -59,15 +63,18 @@ public class Instructor {
     private Integer aniosExperiencia;
 
     @NotBlank(message = "Debe indicar la disponibilidad")
+    @Column(nullable = false, length = 120)
     private String disponibilidad;
 
     @Size(max = 500, message = "Las certificaciones no pueden superar 500 caracteres")
     private String certificaciones;
 
     @NotBlank(message = "Debe asignarse un rol")
+    @Column(nullable = false, length = 20)
     private String rol;
 
     @NotBlank(message = "La contraseña es obligatoria")
     @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
+    @Column(nullable = false)
     private String password;
 }

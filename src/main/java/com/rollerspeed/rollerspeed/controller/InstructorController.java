@@ -1,5 +1,6 @@
 package com.rollerspeed.rollerspeed.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,7 @@ public class InstructorController {
     @Operation(summary = "Obtener una lista de todos los instructores", description = "Devuelve una lista de todos los instructores registrados")
     @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente")
     @GetMapping
+    @PreAuthorize("hasAnyRole('INSTRUCTOR','ADMIN')")
     public String listarInstructores(Model model) {
         model.addAttribute("instructores", instructorService.listarInstructores());
         return "pages/instructores/listar_instructores";
@@ -40,6 +42,7 @@ public class InstructorController {
     @Operation(summary = "Obtener un formulario para crear un nuevo instructor", description = "Devuelve el formulario para crear un nuevo instructor")
     @ApiResponse(responseCode = "200", description = "Formulario obtenido correctamente")
     @GetMapping("/nuevo")
+    @PreAuthorize("hasRole('ADMIN')")
     public String mostrarFormularioRegistro(Model model) {
         if (!model.containsAttribute("instructor")) {
             Instructor instructor = new Instructor();
@@ -57,6 +60,7 @@ public class InstructorController {
         @ApiResponse(responseCode = "409", description = "Correo ya registrado en el sistema")
     })
     @PostMapping("/guardar")
+    @PreAuthorize("hasRole('ADMIN')")
     public String guardarInstructor(@Valid @ModelAttribute("instructor") Instructor instructor, BindingResult result,
             Model model, RedirectAttributes redirectAttributes) {
 
