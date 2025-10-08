@@ -11,19 +11,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.NotNull;
 
+@Setter
+@Getter
+@Builder
 @Entity // ¡Esto le dice a JPA que es una tabla!
-@Table(name = "tbl_alumnos") // Nombre de la tabla en la BD
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor // Nombre de la tabla en la BD
+@Table(name = "tbl_alumnos")
 public class Alumno {
 
     @Id
