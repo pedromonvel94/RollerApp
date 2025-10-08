@@ -34,13 +34,13 @@
                 </a>
             </li>
 
-            <li class="nav-item dropdown" sec:authorize="hasAnyRole('ALUMNO','INSTRUCTOR','ADMIN')">
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Registro
                 </a>
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li sec:authorize="hasAnyRole('INSTRUCTOR','ADMIN')"><a class="dropdown-item" th:href="@{/alumnos/nuevo}">Inscripción de Estudiantes</a></li>
-                <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/instructores/nuevo}">Inscripción de Instructor</a></li>
+                <li><a class="dropdown-item" th:href="@{/alumnos/nuevo}">Inscripción de Estudiantes</a></li>
+                <li><a class="dropdown-item" th:href="@{/instructores/nuevo}">Inscripción de Instructor</a></li>
                 <li sec:authorize="hasAnyRole('ALUMNO','INSTRUCTOR','ADMIN')"><a class="dropdown-item" th:href="@{/clases}">Clases</a></li>
                 </ul>
             </li>

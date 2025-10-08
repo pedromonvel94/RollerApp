@@ -153,7 +153,8 @@
                             <input type="hidden" th:field="*{rol}" value="ALUMNO"/>
 
                             <div class="d-flex justify-content-end gap-2 mt-4">
-                                <a class="btn btn-outline-secondary" th:href="@{/alumnos}">
+                                <a class="btn btn-outline-secondary"
+                                   th:href="${modoEdicion} ? @{/alumnos} : @{/auth/login}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success" th:text="${modoEdicion} ? 'Actualizar alumno' : 'Guardar alumno'">

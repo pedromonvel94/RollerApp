@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rollerspeed.rollerspeed.Model.Instructor;
 import com.rollerspeed.rollerspeed.Service.InstructorService;
+import com.rollerspeed.rollerspeed.security.dto.AuthRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -42,7 +43,6 @@ public class InstructorController {
     @Operation(summary = "Obtener un formulario para crear un nuevo instructor", description = "Devuelve el formulario para crear un nuevo instructor")
     @ApiResponse(responseCode = "200", description = "Formulario obtenido correctamente")
     @GetMapping("/nuevo")
-    @PreAuthorize("hasRole('ADMIN')")
     public String mostrarFormularioRegistro(Model model) {
         if (!model.containsAttribute("instructor")) {
             Instructor instructor = new Instructor();
@@ -60,7 +60,6 @@ public class InstructorController {
         @ApiResponse(responseCode = "409", description = "Correo ya registrado en el sistema")
     })
     @PostMapping("/guardar")
-    @PreAuthorize("hasRole('ADMIN')")
     public String guardarInstructor(@Valid @ModelAttribute("instructor") Instructor instructor, BindingResult result,
             Model model, RedirectAttributes redirectAttributes) {
 
@@ -79,7 +78,11 @@ public class InstructorController {
             return "pages/instructores/form_instructor";
         }
 
-        redirectAttributes.addFlashAttribute("mensajeExito", "Instructor registrado correctamente");
-        return "redirect:/instructores";
+        AuthRequest authPrefill = new AuthRequest();
+        authPrefill.setCorreo(instructor.getCorreo());
+        redirectAttributes.addFlashAttribute("authRequest", authPrefill);
+        redirectAttributes.addFlashAttribute("mensajeLogin",
+                "Instructor registrado correctamente. Inicia sesión para acceder a tus funciones.");
+        return "redirect:/auth/login";
     }
 }

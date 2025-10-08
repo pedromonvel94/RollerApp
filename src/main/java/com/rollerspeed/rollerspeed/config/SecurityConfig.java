@@ -90,6 +90,8 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/doc", "/doc/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/static/**", "/assets/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/auth/login", "/auth/logout").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/alumnos/nuevo", "/instructores/nuevo").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/alumnos/guardar", "/instructores/guardar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         // Las vistas públicas del sitio principal
                         .requestMatchers(HttpMethod.GET,

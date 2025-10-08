@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rollerspeed.rollerspeed.Model.Alumno;
 import com.rollerspeed.rollerspeed.Service.AlumnoService;
+import com.rollerspeed.rollerspeed.security.dto.AuthRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -59,7 +60,6 @@ public class AlumnoController {
     @Operation(summary = "Obtener un formulario para crear un nuevo alumno", description = "Devuelve el formulario para crear un nuevo alumno")
     @ApiResponse(responseCode = "200", description = "Formulario obtenido correctamente")
     @GetMapping("/nuevo")
-    @PreAuthorize("hasAnyRole('INSTRUCTOR','ADMIN')")
     public String mostrarFormulario(Model model) {
         Alumno alumno = new Alumno();
         alumno.setRol("ALUMNO"); // Establece el rol predeterminado
@@ -76,7 +76,6 @@ public class AlumnoController {
         @ApiResponse(responseCode = "409", description = "Correo ya registrado en el sistema")
     })
     @PostMapping("/guardar")
-    @PreAuthorize("hasAnyRole('INSTRUCTOR','ADMIN')")
     public String guardarUsuario(@Valid @ModelAttribute("alumno") Alumno alumno, BindingResult result,
             Model model, RedirectAttributes redirectAttributes) {
 
@@ -91,8 +90,14 @@ public class AlumnoController {
         }
 
         alumnoService.guardar(alumno);
-        redirectAttributes.addFlashAttribute("mensajeExito", "Alumno registrado correctamente");
-        return "redirect:/alumnos";
+
+        AuthRequest authPrefill = new AuthRequest();
+        authPrefill.setCorreo(alumno.getCorreo());
+        redirectAttributes.addFlashAttribute("authRequest", authPrefill);
+        redirectAttributes.addFlashAttribute("mensajeLogin",
+                "Alumno registrado correctamente. Inicia sesión para continuar.");
+
+        return "redirect:/auth/login";
     }
 
     @Operation(summary = "Obtener nuevamente el formulario para modificar un alumno existente.", description = "Devuelve el formulario para editar un alumno existente")
