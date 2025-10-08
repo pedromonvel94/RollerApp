@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light"
     xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     th:fragment="navbar">
         <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">
@@ -33,18 +34,18 @@
                 </a>
             </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" sec:authorize="hasAnyRole('ALUMNO','INSTRUCTOR','ADMIN')">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Registro
                 </a>
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" th:href="@{/alumnos/nuevo}">Inscripción de Estudiantes</a></li>
-                <li><a class="dropdown-item" th:href="@{/instructores/nuevo}">Inscripción de Instructor</a></li>
-                <li><a class="dropdown-item" th:href="@{/clases}">Clases</a></li>
+                <li sec:authorize="hasAnyRole('INSTRUCTOR','ADMIN')"><a class="dropdown-item" th:href="@{/alumnos/nuevo}">Inscripción de Estudiantes</a></li>
+                <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/instructores/nuevo}">Inscripción de Instructor</a></li>
+                <li sec:authorize="hasAnyRole('ALUMNO','INSTRUCTOR','ADMIN')"><a class="dropdown-item" th:href="@{/clases}">Clases</a></li>
                 </ul>
             </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" sec:authorize="hasAnyRole('INSTRUCTOR','ADMIN')">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Estudiantes
                 </a>
@@ -53,17 +54,24 @@
                 </ul>
             </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" sec:authorize="hasAnyRole('ALUMNO','INSTRUCTOR','ADMIN')">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Calendario
                 </a>
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" th:href="@{/calendario/estudiantes}">Estudiantes</a></li>
-                <li><a class="dropdown-item" th:href="@{/calendario/instructores}">Instructor</a></li>
+                <li sec:authorize="hasRole('ALUMNO')"><a class="dropdown-item" th:href="@{/calendario/estudiantes}">Estudiantes</a></li>
+                <li sec:authorize="hasAnyRole('INSTRUCTOR','ADMIN')"><a class="dropdown-item" th:href="@{/calendario/instructores}">Instructor</a></li>
                 </ul>
             </li>
 
         </ul>
+        <div class="d-flex align-items-center ms-3">
+            <span class="text-muted small me-3" sec:authorize="isAuthenticated()">Hola, <strong sec:authentication="name"></strong></span>
+            <a class="btn btn-outline-primary" th:href="@{/auth/login}" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
+            <form th:action="@{/auth/logout}" method="post" class="ms-2" sec:authorize="isAuthenticated()">
+                <button type="submit" class="btn btn-outline-danger">Cerrar sesión</button>
+            </form>
+        </div>
     </div>
 </div>
 </nav>

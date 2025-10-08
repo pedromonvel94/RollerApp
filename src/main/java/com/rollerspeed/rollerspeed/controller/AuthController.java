@@ -2,7 +2,11 @@ package com.rollerspeed.rollerspeed.controller;
 
 import java.time.Instant;
 
+import java.time.Duration;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rollerspeed.rollerspeed.security.JwtAuthenticationFilter;
 import com.rollerspeed.rollerspeed.security.JwtService;
 import com.rollerspeed.rollerspeed.security.UserPrincipal;
 import com.rollerspeed.rollerspeed.security.dto.AuthRequest;
@@ -62,7 +67,17 @@ public class AuthController {
                 Instant.now().toString(),
                 rol.replace("ROLE_", ""));
 
-        return ResponseEntity.ok(response);
+        ResponseCookie cookie = ResponseCookie.from(JwtAuthenticationFilter.JWT_COOKIE_NAME, token)
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .maxAge(Duration.ofMillis(jwtService.getExpirationInMillis()))
+                .sameSite("Lax")
+                .build();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(response);
     }
 
     /**
@@ -71,5 +86,22 @@ public class AuthController {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<String> handleBadCredentials(BadCredentialsException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
+    }
+
+    @Operation(summary = "Cierra la sesión y limpia la cookie del JWT", description = "Elimina el token almacenado en el navegador")
+    @ApiResponse(responseCode = "200", description = "Sesión cerrada correctamente")
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        ResponseCookie cookie = ResponseCookie.from(JwtAuthenticationFilter.JWT_COOKIE_NAME, "")
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .maxAge(0)
+                .sameSite("Lax")
+                .build();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .build();
     }
 }

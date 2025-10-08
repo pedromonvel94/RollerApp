@@ -13,6 +13,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 
 /**
  * Filtro que intercepta cada petición HTTP y, si recibe un JWT válido en la cabecera Authorization,
@@ -20,6 +21,8 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    public static final String JWT_COOKIE_NAME = "rollerspeed-token";
 
     private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
@@ -37,13 +40,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String username;
 
-        // Si no viene el encabezado Authorization con formato Bearer, dejamos pasar la petición.
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        // Intentamos obtener el token ya sea desde el header Authorization o desde la cookie HttpOnly.
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            jwt = authHeader.substring(7);
+        } else {
+            jwt = extractTokenFromCookies(request.getCookies());
+        }
+
+        if (jwt == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        jwt = authHeader.substring(7);
         username = jwtService.extractUsername(jwt);
 
         // Evitamos recrear la autenticación si ya existe una sesión válida en el contexto.
@@ -61,5 +69,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    /**
+     * Permite que usuarios autenticados desde la vista usen un JWT entregado como cookie HttpOnly.
+     */
+    private String extractTokenFromCookies(Cookie[] cookies) {
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (JWT_COOKIE_NAME.equals(cookie.getName())) {
+                return cookie.getValue();
+            }
+        }
+        return null;
     }
 }
