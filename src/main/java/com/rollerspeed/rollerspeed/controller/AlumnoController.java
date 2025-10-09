@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rollerspeed.rollerspeed.Model.Alumno;
 import com.rollerspeed.rollerspeed.Service.AlumnoService;
+import com.rollerspeed.rollerspeed.security.dto.AuthRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -50,7 +51,11 @@ public class AlumnoController {
     @Operation(summary = "Obtener una lista de todos los alumnos", description = "Devuelve una lista de todos los alumnos registrados")
     @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente")
     @GetMapping
+<<<<<<< HEAD
     @PreAuthorize("hasAuthority('UPDATE')") // Estoy indicando con PreAuthorize que solo INSTRUCTORES y ADMIN pueden acceder, es como lo que hice en securityConfig en el authorizeHttpRequests
+=======
+    @PreAuthorize("hasAnyRole('INSTRUCTOR','ADMIN')")
+>>>>>>> origin/luis
     public String listar(Model model) {
         List<Alumno> alumnos = alumnoService.listarAlumnos();
         model.addAttribute("alumnos", alumnos);
@@ -92,14 +97,24 @@ public class AlumnoController {
         }
 
         alumnoService.guardar(alumno);
-        redirectAttributes.addFlashAttribute("mensajeExito", "Alumno registrado correctamente");
-        return "redirect:/alumnos";
+
+        AuthRequest authPrefill = new AuthRequest();
+        authPrefill.setCorreo(alumno.getCorreo());
+        redirectAttributes.addFlashAttribute("authRequest", authPrefill);
+        redirectAttributes.addFlashAttribute("mensajeLogin",
+                "Alumno registrado correctamente. Inicia sesión para continuar.");
+
+        return "redirect:/auth/login";
     }
 
     @Operation(summary = "Obtener nuevamente el formulario para modificar un alumno existente.", description = "Devuelve el formulario para editar un alumno existente")
     @ApiResponse(responseCode = "200", description = "Formulario obtenido correctamente")
     @GetMapping("/editar/{id}")
+<<<<<<< HEAD
     @PreAuthorize("hasAuthority('UPDATE')") // Estoy indicando con PreAuthorize que solo INSTRUCTORES y ADMIN pueden editar un alumno
+=======
+    @PreAuthorize("hasAnyRole('INSTRUCTOR','ADMIN')")
+>>>>>>> origin/luis
     public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
         Alumno alumno = alumnoService.buscarPorId(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Alumno no encontrado"));
@@ -117,7 +132,11 @@ public class AlumnoController {
         @ApiResponse(responseCode = "302", description = "Errores de validación en los campos del formulario"),
     })
     @PostMapping("/actualizar/{id}")
+<<<<<<< HEAD
     @PreAuthorize("hasAuthority('UPDATE')") // Estoy indicando con PreAuthorize que solo INSTRUCTORES y ADMIN pueden actualizar un alumno
+=======
+    @PreAuthorize("hasAnyRole('INSTRUCTOR','ADMIN')")
+>>>>>>> origin/luis
     public String actualizarAlumno(@PathVariable Long id, @Valid @ModelAttribute("alumno") Alumno alumno,
             BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
@@ -154,7 +173,11 @@ public class AlumnoController {
     @Operation(summary = "Eliminar un alumno", description = "Elimina un alumno existente basado en el id")
     @ApiResponse(responseCode = "200", description = "Alumno eliminado correctamente")
     @GetMapping("/eliminar/{id}")
+<<<<<<< HEAD
     @PreAuthorize("hasAuthority('DELETE')") // Estoy indicando con PreAuthorize que solo ADMIN puede eliminar un alumno
+=======
+    @PreAuthorize("hasAnyRole('INSTRUCTOR','ADMIN')")
+>>>>>>> origin/luis
     public String eliminarAlumno(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         alumnoService.eliminar(id);
         redirectAttributes.addFlashAttribute("mensajeExito", "Alumno eliminado correctamente");
